@@ -1,0 +1,80 @@
+<!-- File: Views\DoctorView.xaml -->
+<UserControl x:Class="MediTechDesktopApp.Views.DoctorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MediTechDesktopApp.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="500"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.DataContext>
+        <vm:DoctorViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+            <!-- First Name -->
+            <TextBox x:Name="FirstNameBox"
+                     Width="120" Margin="5"
+                     Foreground="Gray"
+                     Text="First Name"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Last Name -->
+            <TextBox x:Name="LastNameBox"
+                     Width="120" Margin="5"
+                     Foreground="Gray"
+                     Text="Last Name"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Specialization -->
+            <TextBox x:Name="SpecializationBox"
+                     Width="150" Margin="5"
+                     Foreground="Gray"
+                     Text="Specialization"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Phone -->
+            <TextBox x:Name="PhoneBox"
+                     Width="120" Margin="5"
+                     Foreground="Gray"
+                     Text="Phone"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Email -->
+            <TextBox x:Name="EmailBox"
+                     Width="180" Margin="5"
+                     Foreground="Gray"
+                     Text="Email"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <Button Content="Add Doctor" Margin="10,0,0,0" Click="AddDoctor_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Doctors}"
+                  Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding DoctorId}" Width="50"/>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Specialization" Binding="{Binding Specialization}"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding ContactPhone}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding ContactEmail}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

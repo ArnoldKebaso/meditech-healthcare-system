@@ -1,0 +1,94 @@
+<UserControl x:Class="MediTechDesktopApp.Views.PrescriptionView"
+             Loaded="UserControl_Loaded"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MediTechDesktopApp.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="350" d:DesignWidth="700">
+
+	<UserControl.DataContext>
+		<vm:PrescriptionViewModel/>
+	</UserControl.DataContext>
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+			<!-- Medical Record ID -->
+			<TextBox x:Name="RecordIdBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Record ID"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+			<!-- Medication Name -->
+			<TextBox x:Name="MedicationNameBox"
+                     Width="200" Margin="5"
+                     Foreground="Gray"
+                     Text="Medication"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+			<!-- Dosage -->
+			<TextBox x:Name="DosageBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Dosage"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+			<!-- Frequency -->
+			<TextBox x:Name="FrequencyBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Frequency"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+			<!-- Start Date -->
+			<DatePicker x:Name="StartDatePicker"
+                        Width="120" Margin="5"
+                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+
+			<!-- End Date -->
+			<DatePicker x:Name="EndDatePicker"
+                        Width="120" Margin="5"
+                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+
+			<!-- Instructions -->
+			<TextBox x:Name="InstructionsBox"
+                     Width="200" Margin="5"
+                     Foreground="Gray"
+                     Text="Instructions"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+			<Button Content="Add Prescription"
+                    Margin="10,0,0,0"
+                    Click="AddPrescription_Click"/>
+		</StackPanel>
+
+		<DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Prescriptions}"
+                  Margin="0,10,0,0">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ID"          Binding="{Binding PrescriptionId}" Width="50"/>
+				<DataGridTextColumn Header="Record ID"   Binding="{Binding RecordId}"       Width="100"/>
+				<DataGridTextColumn Header="Medication"  Binding="{Binding MedicationName}" Width="200"/>
+				<DataGridTextColumn Header="Dosage"      Binding="{Binding Dosage}"         Width="100"/>
+				<DataGridTextColumn Header="Frequency"   Binding="{Binding Frequency}"      Width="100"/>
+				<DataGridTextColumn Header="Start Date"  Binding="{Binding StartDate}"      Width="120"/>
+				<DataGridTextColumn Header="End Date"    Binding="{Binding EndDate}"        Width="120"/>
+				<DataGridTextColumn Header="Instructions" Binding="{Binding Instructions}"   Width="150"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

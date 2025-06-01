@@ -1,0 +1,69 @@
+<UserControl x:Class="MediTechDesktopApp.Views.InvoiceView"
+             Loaded="UserControl_Loaded"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MediTechDesktopApp.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="350" d:DesignWidth="600">
+
+    <UserControl.DataContext>
+        <vm:InvoiceViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+            <!-- Patient ID -->
+            <TextBox x:Name="PatientIdBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Patient ID"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Invoice Date -->
+            <DatePicker x:Name="InvoiceDatePicker"
+                        Width="150" Margin="5"
+                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+
+            <!-- Total Amount -->
+            <TextBox x:Name="TotalAmountBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Amount"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Status ComboBox -->
+            <ComboBox x:Name="StatusCombo" Width="120" Margin="5" SelectedIndex="0">
+                <ComboBoxItem Content="Pending"/>
+                <ComboBoxItem Content="Paid"/>
+                <ComboBoxItem Content="Cancelled"/>
+            </ComboBox>
+
+            <Button Content="Add Invoice"
+                    Margin="10,0,0,0"
+                    Click="AddInvoice_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Invoices}"
+                  Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding InvoiceId}" Width="50"/>
+                <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientId}" Width="100"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate}" Width="150"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}" Width="100"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

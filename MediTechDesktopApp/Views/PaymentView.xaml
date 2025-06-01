@@ -1,0 +1,79 @@
+<UserControl x:Class="MediTechDesktopApp.Views.PaymentView"
+             Loaded="UserControl_Loaded"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MediTechDesktopApp.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="350" d:DesignWidth="600">
+
+    <UserControl.DataContext>
+        <vm:PaymentViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+            <!-- Invoice ID -->
+            <TextBox x:Name="InvoiceIdBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Invoice ID"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Payment Date -->
+            <DatePicker x:Name="PaymentDatePicker"
+                        Width="150" Margin="5"
+                        SelectedDate="{x:Static sys:DateTime.Now}"/>
+
+            <!-- Amount Paid -->
+            <TextBox x:Name="AmountPaidBox"
+                     Width="100" Margin="5"
+                     Foreground="Gray"
+                     Text="Amount Paid"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <!-- Method ComboBox -->
+            <ComboBox x:Name="MethodCombo" Width="120" Margin="5" SelectedIndex="0">
+                <ComboBoxItem Content="Cash"/>
+                <ComboBoxItem Content="Card"/>
+                <ComboBoxItem Content="Insurance"/>
+                <ComboBoxItem Content="Other"/>
+            </ComboBox>
+
+            <!-- Transaction Ref -->
+            <TextBox x:Name="TransactionRefBox"
+                     Width="150" Margin="5"
+                     Foreground="Gray"
+                     Text="Transaction Ref"
+                     GotFocus="Placeholder_GotFocus"
+                     LostFocus="Placeholder_LostFocus"/>
+
+            <Button Content="Add Payment"
+                    Margin="10,0,0,0"
+                    Click="AddPayment_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Payments}"
+                  Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding PaymentId}" Width="50"/>
+                <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceId}" Width="100"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding PaymentDate}" Width="150"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding AmountPaid}" Width="100"/>
+                <DataGridTextColumn Header="Method" Binding="{Binding Method}" Width="100"/>
+                <DataGridTextColumn Header="Ref" Binding="{Binding TransactionRef}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
