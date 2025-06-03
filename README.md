@@ -73,16 +73,7 @@ Current Progress (as of Day 3)
 *   🕓 C# application project created; initial connection test to DB scheduled for Day 4
     
 
-How to Contribute
------------------
 
-*   Fork the repository and create a feature branch: git checkout -b feature/my-feature
-    
-*   Commit your changes: \`git commit -m "Add new feature"
-    
-*   Push to the branch: git push origin feature/my-feature
-    
-*   Open a Pull Request for review.
     
 
 Documentation
