@@ -1,0 +1,25 @@
+<UserControl x:Class="MediTechDesktopApp.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="#EEE">
+            <Button Content="Patients"      Click="BtnPatients_Click"      Margin="2" />
+            <Button Content="Doctors"       Click="BtnDoctors_Click"       Margin="2" />
+            <Button Content="Nurses"        Click="BtnNurses_Click"        Margin="2" />
+            <Button Content="AdminStaff"    Click="BtnAdminStaff_Click"    Margin="2" />
+            <Button Content="Treatments"    Click="BtnTreatments_Click"    Margin="2" />
+            <Button Content="Assignments"   Click="BtnAssignments_Click"   Margin="2" />
+            <Button Content="PatientFiles"  Click="BtnPatientFiles_Click"  Margin="2" />
+            <Button Content="Ins. Providers" Click="BtnInsProviders_Click" Margin="2" />
+            <Button Content="Ins. Policies"  Click="BtnInsPolicies_Click"  Margin="2" />
+            <Button Content="Appointments"  Click="BtnAppointments_Click" Margin="2" />
+            <Button Content="Pt. Insurance"   Click="BtnPatientInsurance_Click" Margin="2" />
+            <Button Content="Invoices"        Click="BtnInvoices_Click"    Margin="2" />
+            <Button Content="Payments"        Click="BtnPayments_Click"    Margin="2" />
+            <Button Content="Med Records"   Click="BtnMedRecords_Click"    Margin="2" />
+            <Button Content="Prescriptions" Click="BtnPrescriptions_Click" Margin="2" />
+            <!-- ... other form buttons -->
+        </StackPanel>
+        <ContentControl x:Name="FormContentArea"/>
+    </DockPanel>
+</UserControl>

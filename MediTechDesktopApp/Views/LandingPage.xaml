@@ -1,0 +1,15 @@
+<UserControl x:Class="MediTechDesktopApp.Views.LandingPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xamls">
+    <Grid Background="#FFF0F8FF">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Welcome to MediTech Innovations" FontSize="30" FontWeight="Bold" Margin="0,0,0,20"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Home" Width="100" Margin="5" />
+                <Button Content="About Us" Width="100" Margin="5"/>
+                <Button Content="Contact Us" Width="100" Margin="5"/>
+                <Button Content="Login" Width="100" Margin="5" Click="Login_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

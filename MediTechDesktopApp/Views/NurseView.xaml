@@ -1,0 +1,78 @@
+﻿<!-- File: Views/NurseView.xaml -->
+<UserControl x:Class="MediTechDesktopApp.Views.NurseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ─── Left side: form controls ─── -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+
+            <!-- First Name -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="First Name:" Width="100" VerticalAlignment="Center" />
+                <TextBox x:Name="txtFirstName" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Last Name -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Last Name:" Width="100" VerticalAlignment="Center" />
+                <TextBox x:Name="txtLastName" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Department (ComboBox) -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Department:" Width="100" VerticalAlignment="Center" />
+                <ComboBox x:Name="cbDepartment" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Phone -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Phone:" Width="100" VerticalAlignment="Center" />
+                <TextBox x:Name="txtPhone" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Email -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Email:" Width="100" VerticalAlignment="Center" />
+                <TextBox x:Name="txtEmail" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Buttons row -->
+            <StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
+                <Button x:Name="btnNew"       Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"      />
+                <Button x:Name="btnSave"      Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"     IsEnabled="False" />
+                <Button x:Name="btnEdit"      Content="Edit"    Width="60" Margin="0,0,5,0" Click="btnEdit_Click"     IsEnabled="False" />
+                <Button x:Name="btnDelete"    Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"   IsEnabled="False" />
+                <Button x:Name="btnRefresh"   Content="Refresh" Width="60"             Click="btnRefresh_Click"          />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ─── Right side: DataGrid of nurses ─── -->
+        <DataGrid x:Name="dgNurses"
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  SelectionChanged="dgNurses_SelectionChanged"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"           Binding="{Binding NurseId}"         Width="Auto" />
+                <DataGridTextColumn Header="First Name"   Binding="{Binding FirstName}"       Width="*"    />
+                <DataGridTextColumn Header="Last Name"    Binding="{Binding LastName}"        Width="*"    />
+                <DataGridTextColumn Header="Department"   Binding="{Binding DepartmentName}"  Width="*"    />
+                <DataGridTextColumn Header="Phone"        Binding="{Binding ContactPhone}"    Width="Auto" />
+                <DataGridTextColumn Header="Email"        Binding="{Binding ContactEmail}"    Width="2*"   />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

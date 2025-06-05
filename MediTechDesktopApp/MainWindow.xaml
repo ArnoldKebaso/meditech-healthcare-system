@@ -1,0 +1,108 @@
+﻿<Window x:Class="MediTechDesktopApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:MediTechDesktopApp.Views"
+        Title="MediTech Management"
+        Width="1100" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel LastChildFill="True">
+
+        <!-- ── Top Bar: Home | About | Contact | Dashboard | Log Out ── -->
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Top"
+                    Background="#FF2C6E49"
+                    Height="45">
+            <Button Content="Home"
+                    Name="BtnHome"
+                    Margin="10,7"
+                    Padding="10,5"
+                    Foreground="White"
+                    Background="#FF2C6E49"
+                    BorderBrush="Transparent"
+                    FontWeight="Bold"
+                    Click="BtnHome_Click" />
+
+            <Button Content="About"
+                    Name="BtnAbout"
+                    Margin="10,7"
+                    Padding="10,5"
+                    Foreground="White"
+                    Background="#FF2C6E49"
+                    BorderBrush="Transparent"
+                    FontWeight="Bold"
+                    Click="BtnAbout_Click" />
+
+            <Button Content="Contact"
+                    Name="BtnContact"
+                    Margin="10,7"
+                    Padding="10,5"
+                    Foreground="White"
+                    Background="#FF2C6E49"
+                    BorderBrush="Transparent"
+                    FontWeight="Bold"
+                    Click="BtnContact_Click" />
+
+            <!-- Dashboard launches login dialog -->
+            <Button Content="Dashboard"
+                    Name="BtnDashboard"
+                    Margin="10,7"
+                    Padding="10,5"
+                    Foreground="White"
+                    Background="#FF2C6E49"
+                    BorderBrush="Transparent"
+                    FontWeight="Bold"
+                    Click="BtnDashboard_Click" />
+
+            <!-- Log Out only visible after login -->
+            <Button Content="Log Out"
+                    Name="BtnLogOut"
+                    Margin="10,7"
+                    Padding="10,5"
+                    Foreground="White"
+                    Background="#FF2C6E49"
+                    BorderBrush="Transparent"
+                    FontWeight="Bold"
+                    Click="BtnLogOut_Click"
+                    Visibility="Collapsed" />
+        </StackPanel>
+
+
+        <!-- ── Left Navigation Panel (initially hidden) ── -->
+        <StackPanel Orientation="Vertical"
+                    Name="LeftNavPanel"
+                    DockPanel.Dock="Left"
+                    Background="#FF335945"
+                    Width="180"
+                    Visibility="Collapsed">
+            <TextBlock Text="Dashboard"
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="10,15,0,15" />
+
+            <Button Content="Patients"        Name="BtnPatients"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPatients_Click" />
+            <Button Content="Doctors"         Name="BtnDoctors"       Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnDoctors_Click"  />
+            <Button Content="Nurses"          Name="BtnNurses"        Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnNurses_Click"   />
+            <Button Content="AdminStaff"      Name="BtnAdminStaff"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAdminStaff_Click" />
+            <Button Content="Treatments"      Name="BtnTreatments"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnTreatments_Click" />
+            <Button Content="Assignments"     Name="BtnAssignments"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAssignments_Click"/>
+            <Button Content="PatientFiles"    Name="BtnPatientFiles"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPatientFiles_Click"/>
+            <Button Content="InsProviders"    Name="BtnInsProviders"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInsProviders_Click"/>
+            <Button Content="InsPolicies"     Name="BtnInsPolicies"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInsPolicies_Click"/>
+            <Button Content="Appointments"    Name="BtnAppointments"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAppointments_Click"/>
+            <Button Content="PtInsurance"     Name="BtnPtInsurance"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPtInsurance_Click"/>
+            <Button Content="Invoices"        Name="BtnInvoices"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInvoices_Click"/>
+            <Button Content="Payments"        Name="BtnPayments"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPayments_Click"/>
+            <Button Content="MedRecords"      Name="BtnMedRecords"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnMedRecords_Click"/>
+            <Button Content="Prescriptions"   Name="BtnPrescriptions" Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPrescriptions_Click"/>
+            <Button Content="Departments"     Name="BtnDepartments"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnDepartments_Click"/>
+        </StackPanel>
+
+
+        <!-- ── Main Content Area: whichever UserControl is currently loaded ── -->
+        <ContentControl Name="ContentArea"
+                        Background="#FFF5F5F5" />
+
+    </DockPanel>
+</Window>

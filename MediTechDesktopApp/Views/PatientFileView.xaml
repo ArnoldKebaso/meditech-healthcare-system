@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="MediTechDesktopApp.Views.PatientFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <!-- Left side (form) is 2*, Right side (grid) is 3* -->
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ─── Left side: Form Controls ─── -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+
+            <!-- Patient Dropdown -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Patient:" Width="80" VerticalAlignment="Center" />
+                <ComboBox x:Name="cbPatients" Width="200" 
+                          SelectionChanged="cbPatients_SelectionChanged" />
+            </StackPanel>
+
+            <!-- File Name -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="File Name:" Width="80" VerticalAlignment="Center" />
+                <TextBox x:Name="txtFileName" Width="200" IsEnabled="False" />
+            </StackPanel>
+
+            <!-- Browse Button -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Button x:Name="btnBrowse" Content="Browse…" Width="80" Click="btnBrowse_Click" />
+                <TextBlock x:Name="txtFilePath" Width="200" Margin="10,0,0,0" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <!-- Buttons row -->
+            <StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
+                <Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"     />
+                <Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False" />
+                <Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click" IsEnabled="False" />
+                <Button x:Name="btnRefresh" Content="Refresh" Width="60"             Click="btnRefresh_Click" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ─── Right side: DataGrid of PatientFiles ─── -->
+        <DataGrid x:Name="dgPatientFiles"
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  SelectionChanged="dgPatientFiles_SelectionChanged"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"          Binding="{Binding FileId}"       Width="Auto" />
+                <DataGridTextColumn Header="Patient"     Binding="{Binding PatientName}"  Width="2*"    />
+                <DataGridTextColumn Header="File Name"   Binding="{Binding FileName}"     Width="3*"    />
+                <DataGridTextColumn Header="File Type"   Binding="{Binding FileType}"     Width="2*"    />
+                <DataGridTextColumn Header="Size (bytes)" Binding="{Binding FileSizeBytes}" Width="*"     />
+                <DataGridTextColumn Header="Uploaded At" Binding="{Binding UploadedAt, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" Width="2*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

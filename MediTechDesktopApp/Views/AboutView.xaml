@@ -1,0 +1,34 @@
+<!-- Views/AboutView.xaml -->
+<UserControl 
+    x:Class="MediTechDesktopApp.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="White">
+
+    <Grid Margin="20">
+        <TextBlock 
+            Text="About MediTech Management" 
+            FontSize="24" 
+            FontWeight="Bold" 
+            Foreground="#FF2F4F4F" 
+            Margin="0,0,0,10"/>
+
+        <TextBlock 
+            TextWrapping="Wrap" 
+            Margin="0,40,0,0"
+            FontSize="16" 
+            Foreground="#FF555555">
+            MediTech Management is a comprehensive clinic management 
+            solution built for doctors, nurses, and administrative staff. 
+            Our system streamlines:
+            - Patient intake and record keeping
+            - Appointment scheduling
+            - Prescription management
+            - Billing and invoices
+            - Reporting and analytics
+            <LineBreak/><LineBreak/>
+            Developed and maintained by the MediTech Dev Team in 2025. 
+            Designed for ease of use, security, and rapid deployment.
+        </TextBlock>
+    </Grid>
+</UserControl>

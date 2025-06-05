@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="MediTechDesktopApp.Views.PatientInsuranceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <!-- Left: form -->
+            <ColumnDefinition Width="3*" />
+            <!-- Right: DataGrid -->
+        </Grid.ColumnDefinitions>
+
+        <!-- ───────── Form Fields (Left) ───────── -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <!-- Patient ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Patient:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbPatient" Width="200" />
+            </StackPanel>
+
+            <!-- Policy ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Policy:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbPolicy" Width="200" />
+            </StackPanel>
+
+            <!-- Buttons row -->
+            <StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
+                <Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"/>
+                <Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False"/>
+                <Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"  IsEnabled="False"/>
+                <Button x:Name="btnRefresh" Content="Refresh" Width="60"               Click="btnRefresh_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ───────── DataGrid (Right) ───────── -->
+        <DataGrid x:Name="dgPatientInsurance"
+                  Grid.Column="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  SelectionChanged="dgPatientInsurance_SelectionChanged"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Patient"   Binding="{Binding PatientFullName}" Width="2*"/>
+                <DataGridTextColumn Header="Policy #"  Binding="{Binding PolicyNumber}"    Width="2*"/>
+                <DataGridTextColumn Header="Coverage"  Binding="{Binding CoverageDetails}" Width="3*"/>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="Auto"/>
+                <DataGridTextColumn Header="End Date"   Binding="{Binding EndDate,   StringFormat=\{0:yyyy-MM-dd\}}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
