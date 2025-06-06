@@ -50,6 +50,9 @@
                   Grid.Column="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  SelectionUnit="FullRow"
                   SelectionMode="Single"
                   SelectionChanged="dgProviders_SelectionChanged"
                   Margin="0,0,0,10">
