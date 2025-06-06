@@ -7,102 +7,58 @@
         WindowStartupLocation="CenterScreen">
 
     <DockPanel LastChildFill="True">
-
-        <!-- ── Top Bar: Home | About | Contact | Dashboard | Log Out ── -->
-        <StackPanel Orientation="Horizontal"
-                    DockPanel.Dock="Top"
-                    Background="#FF2C6E49"
-                    Height="45">
-            <Button Content="Home"
-                    Name="BtnHome"
-                    Margin="10,7"
-                    Padding="10,5"
-                    Foreground="White"
-                    Background="#FF2C6E49"
-                    BorderBrush="Transparent"
-                    FontWeight="Bold"
-                    Click="BtnHome_Click" />
-
-            <Button Content="About"
-                    Name="BtnAbout"
-                    Margin="10,7"
-                    Padding="10,5"
-                    Foreground="White"
-                    Background="#FF2C6E49"
-                    BorderBrush="Transparent"
-                    FontWeight="Bold"
-                    Click="BtnAbout_Click" />
-
-            <Button Content="Contact"
-                    Name="BtnContact"
-                    Margin="10,7"
-                    Padding="10,5"
-                    Foreground="White"
-                    Background="#FF2C6E49"
-                    BorderBrush="Transparent"
-                    FontWeight="Bold"
-                    Click="BtnContact_Click" />
-
-            <!-- Dashboard launches login dialog -->
-            <Button Content="Dashboard"
-                    Name="BtnDashboard"
-                    Margin="10,7"
-                    Padding="10,5"
-                    Foreground="White"
-                    Background="#FF2C6E49"
-                    BorderBrush="Transparent"
-                    FontWeight="Bold"
-                    Click="BtnDashboard_Click" />
-
-            <!-- Log Out only visible after login -->
-            <Button Content="Log Out"
-                    Name="BtnLogOut"
-                    Margin="10,7"
-                    Padding="10,5"
-                    Foreground="White"
-                    Background="#FF2C6E49"
-                    BorderBrush="Transparent"
-                    FontWeight="Bold"
-                    Click="BtnLogOut_Click"
-                    Visibility="Collapsed" />
+        <!-- ── Top Bar (Home / About / Contact / Login / Logout) ── -->
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="#FF2C6E49" Height="45">
+            <Button Content="Home"       Name="BtnHome"       Margin="8,7" Padding="10,5" Foreground="White" Background="#FF2C6E49" BorderBrush="Transparent" Click="BtnHome_Click"/>
+            <Button Content="About"      Name="BtnAbout"      Margin="8,7" Padding="10,5" Foreground="White" Background="#FF2C6E49" BorderBrush="Transparent" Click="BtnAbout_Click"/>
+            <Button Content="Contact"    Name="BtnContact"    Margin="8,7" Padding="10,5" Foreground="White" Background="#FF2C6E49" BorderBrush="Transparent" Click="BtnContact_Click"/>
+            <Button Content="Dashboard"  Name="BtnDashboard"  Margin="8,7" Padding="10,5" Foreground="White" Background="#FF2C6E49" BorderBrush="Transparent" Click="BtnDashboard_Click"/>
+            <Button Content="Log Out"    Name="BtnLogOut"     Margin="8,7" Padding="10,5" Foreground="White" Background="#FF2C6E49" BorderBrush="Transparent" Click="BtnLogOut_Click" Visibility="Collapsed"/>
         </StackPanel>
 
-
-        <!-- ── Left Navigation Panel (initially hidden) ── -->
+        <!-- ── Left Navigation (collapsible once logged in) ── -->
         <StackPanel Orientation="Vertical"
                     Name="LeftNavPanel"
                     DockPanel.Dock="Left"
                     Background="#FF335945"
-                    Width="180"
+                    Width="200"
                     Visibility="Collapsed">
-            <TextBlock Text="Dashboard"
-                       Foreground="White"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Margin="10,15,0,15" />
+            <TextBlock Text="Dashboard" Foreground="White" FontSize="18" FontWeight="Bold" Margin="10,15,0,15"/>
 
-            <Button Content="Patients"        Name="BtnPatients"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPatients_Click" />
-            <Button Content="Doctors"         Name="BtnDoctors"       Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnDoctors_Click"  />
-            <Button Content="Nurses"          Name="BtnNurses"        Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnNurses_Click"   />
-            <Button Content="AdminStaff"      Name="BtnAdminStaff"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAdminStaff_Click" />
-            <Button Content="Treatments"      Name="BtnTreatments"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnTreatments_Click" />
-            <Button Content="Assignments"     Name="BtnAssignments"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAssignments_Click"/>
-            <Button Content="PatientFiles"    Name="BtnPatientFiles"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPatientFiles_Click"/>
-            <Button Content="InsProviders"    Name="BtnInsProviders"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInsProviders_Click"/>
-            <Button Content="InsPolicies"     Name="BtnInsPolicies"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInsPolicies_Click"/>
-            <Button Content="Appointments"    Name="BtnAppointments"  Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnAppointments_Click"/>
-            <Button Content="PtInsurance"     Name="BtnPtInsurance"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPtInsurance_Click"/>
-            <Button Content="Invoices"        Name="BtnInvoices"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnInvoices_Click"/>
-            <Button Content="Payments"        Name="BtnPayments"      Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPayments_Click"/>
-            <Button Content="MedRecords"      Name="BtnMedRecords"    Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnMedRecords_Click"/>
-            <Button Content="Prescriptions"   Name="BtnPrescriptions" Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnPrescriptions_Click"/>
-            <Button Content="Departments"     Name="BtnDepartments"   Margin="5" Padding="6" Foreground="White" Background="#FF4F8A67" BorderBrush="#FF4F8A67" Click="BtnDepartments_Click"/>
+            <!-- ── PATIENT MANAGEMENT ── -->
+            <Expander Header="Patient Management" Foreground="White" Background="#FF4F8A67" Margin="5">
+                <StackPanel>
+                    <Button Content="➤ Patients"        Name="BtnPatients"      Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnPatients_Click" />
+                    <Button Content="➤ Patient Files"   Name="BtnPatientFiles"  Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnPatientFiles_Click" />
+                    <Button Content="➤ Pt Insurance"    Name="BtnPtInsurance"   Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnPtInsurance_Click" />
+                </StackPanel>
+            </Expander>
+
+            <!-- ── CLINICAL MANAGEMENT ── -->
+            <Expander Header="Clinical Management" Foreground="White" Background="#FF4F8A67" Margin="5">
+                <StackPanel>
+                    <Button Content="➤ Appointments"    Name="BtnAppointments"  Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnAppointments_Click" />
+                    <Button Content="➤ Med Records"     Name="BtnMedRecords"    Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnMedRecords_Click" />
+                    <Button Content="➤ Prescriptions"   Name="BtnPrescriptions" Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnPrescriptions_Click" />
+                    <Button Content="➤ Treatments"      Name="BtnTreatments"    Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnTreatments_Click" />
+                    <Button Content="➤ Assignments"     Name="BtnAssignments"   Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnAssignments_Click" />
+                </StackPanel>
+            </Expander>
+
+            <!-- ── BILLING & INSURANCE ── -->
+            <Expander Header="Billing and Insurance" Foreground="White" Background="#FF4F8A67" Margin="5">
+                <StackPanel>
+                    <Button Content="➤ Ins Providers"  Name="BtnInsProviders"   Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnInsProviders_Click" />
+                    <Button Content="➤ Ins Policies"   Name="BtnInsPolicies"    Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnInsPolicies_Click" />
+                    <Button Content="➤ Invoices"       Name="BtnInvoices"       Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnInvoices_Click" />
+                    <Button Content="➤ Payments"       Name="BtnPayments"       Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnPayments_Click" />
+                    <Button Content="➤ Departments"    Name="BtnDepartments"    Margin="3" Padding="6" Foreground="White" Background="Transparent" Click="BtnDepartments_Click" />
+                </StackPanel>
+            </Expander>
         </StackPanel>
 
-
-        <!-- ── Main Content Area: whichever UserControl is currently loaded ── -->
-        <ContentControl Name="ContentArea"
-                        Background="#FFF5F5F5" />
+        <!-- ── Main Content Area ── -->
+        <ContentControl Name="ContentArea" Background="#FFF5F5F5" />
 
     </DockPanel>
 </Window>
