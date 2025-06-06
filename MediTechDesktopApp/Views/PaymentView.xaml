@@ -1,91 +1,75 @@
-﻿<!-- File: Views/PaymentView.xaml -->
-<UserControl x:Class="MediTechDesktopApp.Views.PaymentView"
+﻿<UserControl x:Class="MediTechDesktopApp.Views.PaymentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Loaded="UserControl_Loaded"
-             d:DesignWidth="800" d:DesignHeight="600">
-	<Grid Margin="10">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*" />
-			<!-- Form side -->
-			<ColumnDefinition Width="3*" />
-			<!-- Grid side -->
-		</Grid.ColumnDefinitions>
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
 
-		<!-- ── Left: Input fields ── -->
-		<StackPanel Grid.Column="0" Margin="0,0,10,0">
-			<!-- Payment ID (read-only or blank for new) -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Payment ID:" Width="100" VerticalAlignment="Center"/>
-				<TextBox x:Name="txtPaymentId" Width="200" IsReadOnly="True"/>
-			</StackPanel>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <!-- Left: form -->
+            <ColumnDefinition Width="3*" />
+            <!-- Right: DataGrid -->
+        </Grid.ColumnDefinitions>
 
-			<!-- Invoice Dropdown -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Invoice:" Width="100" VerticalAlignment="Center"/>
-				<ComboBox x:Name="cbInvoices" Width="200"
-                          DisplayMemberPath="Label"
-                          SelectedValuePath="Id"/>
-			</StackPanel>
+        <!-- ─────── Form Section (Left) ─────── -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <!-- Invoice ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Invoice:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbInvoice" Width="200" />
+            </StackPanel>
 
-			<!-- Payment Date -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Date:" Width="100" VerticalAlignment="Center"/>
-				<DatePicker x:Name="dpPaymentDate" Width="200"/>
-			</StackPanel>
+            <!-- Payment Date Picker -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Date:" Width="100" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpPaymentDate" Width="200"/>
+            </StackPanel>
 
-			<!-- Amount Paid -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Amount Paid:" Width="100" VerticalAlignment="Center"/>
-				<TextBox x:Name="txtAmountPaid" Width="200"/>
-			</StackPanel>
+            <!-- Amount Paid TextBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Amount Paid:" Width="100" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtAmountPaid" Width="200"/>
+            </StackPanel>
 
-			<!-- Method -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Method:" Width="100" VerticalAlignment="Center"/>
-				<ComboBox x:Name="cbMethod" Width="200">
-					<ComboBoxItem Content="Cash"/>
-					<ComboBoxItem Content="Card"/>
-					<ComboBoxItem Content="Insurance"/>
-					<ComboBoxItem Content="Other"/>
-				</ComboBox>
-			</StackPanel>
+            <!-- Method ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Method:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbMethod" Width="200">
+                    <ComboBoxItem Content="Cash" />
+                    <ComboBoxItem Content="Credit Card" />
+                    <ComboBoxItem Content="Insurance" />
+                    <ComboBoxItem Content="Other" />
+                </ComboBox>
+            </StackPanel>
 
-			<!-- Transaction Ref -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Trans. Ref:" Width="100" VerticalAlignment="Center"/>
-				<TextBox x:Name="txtTransactionRef" Width="200"/>
-			</StackPanel>
+            <!-- Buttons row -->
+            <StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
+                <Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"/>
+                <Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False"/>
+                <Button x:Name="btnUpdate"  Content="Update"  Width="60" Margin="0,0,5,0" Click="btnUpdate_Click"  IsEnabled="False"/>
+                <Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"  IsEnabled="False"/>
+                <Button x:Name="btnRefresh" Content="Refresh" Width="60"               Click="btnRefresh_Click"/>
+            </StackPanel>
+        </StackPanel>
 
-			<!-- Buttons -->
-			<StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
-				<Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"/>
-				<Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False"/>
-				<Button x:Name="btnEdit"    Content="Edit"    Width="60" Margin="0,0,5,0" Click="btnEdit_Click"    IsEnabled="False"/>
-				<Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"  IsEnabled="False"/>
-				<Button x:Name="btnRefresh" Content="Refresh" Width="60"               Click="btnRefresh_Click"/>
-			</StackPanel>
-		</StackPanel>
-
-		<!-- ── Right: DataGrid ── -->
-		<DataGrid x:Name="dgPayments"
+        <!-- ─────── DataGrid Section (Right) ─────── -->
+        <DataGrid x:Name="dgPayments"
                   Grid.Column="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
-                  SelectionChanged="dgPayments_SelectionChanged">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="ID"      Binding="{Binding PaymentId}"       Width="Auto"/>
-				<DataGridTextColumn Header="Invoice" Binding="{Binding InvoiceLabel}"    Width="Auto"/>
-				<DataGridTextColumn Header="Patient" Binding="{Binding PatientFullName}" Width="2*"/>
-				<DataGridTextColumn Header="Date"    Binding="{Binding PaymentDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="*"/>
-				<DataGridTextColumn Header="Amount"  Binding="{Binding AmountPaid}"      Width="*"/>
-				<DataGridTextColumn Header="Method"  Binding="{Binding Method}"          Width="*"/>
-				<DataGridTextColumn Header="Trans.Ref" Binding="{Binding TransactionRef}" Width="2*"/>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+                  SelectionChanged="dgPayments_SelectionChanged"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice"   Binding="{Binding InvoiceDisplay}"    Width="2*"/>
+                <DataGridTextColumn Header="Date"      Binding="{Binding PaymentDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="*"/>
+                <DataGridTextColumn Header="Amount"    Binding="{Binding AmountPaid, StringFormat=C}" Width="*"/>
+                <DataGridTextColumn Header="Method"    Binding="{Binding Method}"             Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

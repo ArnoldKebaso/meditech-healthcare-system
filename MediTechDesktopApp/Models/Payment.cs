@@ -1,22 +1,25 @@
-﻿// File: Models/Payment.cs
+﻿// Models/Payment.cs
 using System;
 
 namespace MediTechDesktopApp.Models
 {
     /// <summary>
-    /// Represents a single row in the Payments view.
+    /// Represents one Payment row, both for inserting/updating and for reading (joined columns).
     /// </summary>
     public class Payment
     {
+        // Primary‐key column
         public int PaymentId { get; set; }
+
+        // FK → Invoices table
         public int InvoiceId { get; set; }
+
+        // Joined/display column (e.g. "Inv 12 – Alice Kamau")
+        public string InvoiceDisplay { get; set; }
+
+        // Payment details
         public DateTime PaymentDate { get; set; }
         public decimal AmountPaid { get; set; }
-        public string Method { get; set; }  // 'Cash','Card','Insurance','Other'
-        public string TransactionRef { get; set; }
-
-        // Joined columns (for display only):
-        public string InvoiceLabel { get; set; }   // e.g. "#5"
-        public string PatientFullName { get; set; }   // alias: patient_name
+        public string Method { get; set; }
     }
 }
