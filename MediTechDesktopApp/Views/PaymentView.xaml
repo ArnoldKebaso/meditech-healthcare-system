@@ -61,10 +61,15 @@
                   Grid.Column="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
                   SelectionMode="Single"
+                  SelectionUnit="FullRow"
                   SelectionChanged="dgPayments_SelectionChanged"
                   Margin="0,0,0,10">
             <DataGrid.Columns>
+                         
+                
                 <DataGridTextColumn Header="Invoice"   Binding="{Binding InvoiceDisplay}"    Width="2*"/>
                 <DataGridTextColumn Header="Date"      Binding="{Binding PaymentDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="*"/>
                 <DataGridTextColumn Header="Amount"    Binding="{Binding AmountPaid, StringFormat=C}" Width="*"/>
