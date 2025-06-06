@@ -7,7 +7,7 @@ using MediTechDesktopApp.Models;
 namespace MediTechDesktopApp.Services
 {
     /// <summary>
-    /// CRUD for PatientInsurance table, plus lookup lists.
+    /// CRUD for PatientInsurance table, plus lookup lists for ComboBoxes.
     /// </summary>
     public class PatientInsuranceService
     {
@@ -19,8 +19,8 @@ namespace MediTechDesktopApp.Services
         }
 
         /// <summary>
-        /// Returns all PatientInsurance rows joined 
-        /// to Patients and InsurancePolicies so we can display full names.
+        /// Returns all PatientInsurance rows joined to Patients and InsurancePolicies so we can display full names.
+        /// NOTE: coverage_amount is used instead of coverage_details.
         /// </summary>
         public List<PatientInsurance> GetAllPatientInsurance()
         {
@@ -32,7 +32,7 @@ namespace MediTechDesktopApp.Services
                   pi.policy_id,
                   CONCAT(p.first_name, ' ', p.last_name) AS PatientFullName,
                   ip.policy_number        AS PolicyNumber,
-                  ip.coverage_details     AS CoverageDetails,
+                  ip.coverage_details       AS CoverageDetails,
                   ip.start_date           AS StartDate,
                   ip.end_date             AS EndDate
                 FROM PatientInsurance pi
@@ -98,9 +98,9 @@ namespace MediTechDesktopApp.Services
         }
 
         /// <summary>
-        /// Returns a list of tuples (id, fullName) for populating Patient comboBox.
+        /// Returns a list of ComboItem(Id, FullName) for populating the Patient ComboBox.
         /// </summary>
-        public List<(int id, string fullName)> GetAllPatientsForCombo()
+        public List<ComboItem> GetAllPatientsForCombo()
         {
             string sql = @"
                 SELECT 
@@ -109,24 +109,25 @@ namespace MediTechDesktopApp.Services
                 FROM Patients
                 ORDER BY last_name, first_name;
             ";
-            var results = new List<(int, string)>();
+            var results = new List<ComboItem>();
             DataTable dt = _db.ExecuteRawQuery(sql);
 
             foreach (DataRow row in dt.Rows)
             {
-                results.Add((
-                    Convert.ToInt32(row["patient_id"]),
-                    row["FullName"].ToString()
-                ));
+                results.Add(new ComboItem
+                {
+                    Id = Convert.ToInt32(row["patient_id"]),
+                    Name = row["FullName"].ToString()
+                });
             }
 
             return results;
         }
 
         /// <summary>
-        /// Returns a list of tuples (policy_id, policyNumber) for populating Policy comboBox.
+        /// Returns a list of ComboItem(Id, PolicyNumber) for populating the Policy ComboBox.
         /// </summary>
-        public List<(int id, string policyNumber)> GetAllPoliciesForCombo()
+        public List<ComboItem> GetAllPoliciesForCombo()
         {
             string sql = @"
                 SELECT 
@@ -135,15 +136,16 @@ namespace MediTechDesktopApp.Services
                 FROM InsurancePolicies
                 ORDER BY policy_number;
             ";
-            var results = new List<(int, string)>();
+            var results = new List<ComboItem>();
             DataTable dt = _db.ExecuteRawQuery(sql);
 
             foreach (DataRow row in dt.Rows)
             {
-                results.Add((
-                    Convert.ToInt32(row["policy_id"]),
-                    row["policy_number"].ToString()
-                ));
+                results.Add(new ComboItem
+                {
+                    Id = Convert.ToInt32(row["policy_id"]),
+                    Name = row["policy_number"].ToString()
+                });
             }
 
             return results;

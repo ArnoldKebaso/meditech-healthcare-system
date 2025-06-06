@@ -7,69 +7,68 @@
              d:DesignHeight="600" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
 
-	<Grid Margin="10">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*" />
-			<!-- Left: form -->
-			<ColumnDefinition Width="3*" />
-			<!-- Right: DataGrid -->
-		</Grid.ColumnDefinitions>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <!-- Left: form -->
+            <ColumnDefinition Width="3*" />
+            <!-- Right: DataGrid -->
+        </Grid.ColumnDefinitions>
 
-		<!-- ───────── Form Fields (Left) ───────── -->
-		<StackPanel Grid.Column="0" Margin="0,0,10,0">
-			<!-- Patient ComboBox -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Patient:" Width="100" VerticalAlignment="Center"/>
-				<ComboBox x:Name="cbPatient" Width="200" />
-			</StackPanel>
+        <!-- ─────── Form Section (Left) ─────── -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <!-- Patient ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Patient:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbPatient" Width="200" />
+            </StackPanel>
 
-			<!-- Invoice Date -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Date:" Width="100" VerticalAlignment="Center"/>
-				<DatePicker x:Name="dpInvoiceDate" Width="200"/>
-			</StackPanel>
+            <!-- Invoice Date Picker -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Invoice Date:" Width="100" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpInvoiceDate" Width="200"/>
+            </StackPanel>
 
-			<!-- Total Amount -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Total Amount:" Width="100" VerticalAlignment="Center"/>
-				<TextBox x:Name="txtTotalAmount" Width="200"/>
-			</StackPanel>
+            <!-- Total Amount TextBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Total Amount:" Width="100" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtTotalAmount" Width="200"/>
+            </StackPanel>
 
-			<!-- Status -->
-			<StackPanel Orientation="Horizontal" Margin="0,5">
-				<Label Content="Status:" Width="100" VerticalAlignment="Center"/>
-				<ComboBox x:Name="cbStatus" Width="200">
-					<ComboBoxItem Content="Pending" />
-					<ComboBoxItem Content="Paid" />
-					<ComboBoxItem Content="Cancelled" />
-				</ComboBox>
-			</StackPanel>
+            <!-- Status ComboBox -->
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="Status:" Width="100" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbStatus" Width="200">
+                    <ComboBoxItem Content="Pending" />
+                    <ComboBoxItem Content="Paid" />
+                    <ComboBoxItem Content="Overdue" />
+                </ComboBox>
+            </StackPanel>
 
-			<!-- Buttons -->
-			<StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
-				<Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"/>
-				<Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False"/>
-				<Button x:Name="btnEdit"    Content="Edit"    Width="60" Margin="0,0,5,0" Click="btnEdit_Click"    IsEnabled="False"/>
-				<Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"  IsEnabled="False"/>
-				<Button x:Name="btnRefresh" Content="Refresh" Width="60"               Click="btnRefresh_Click"/>
-			</StackPanel>
-		</StackPanel>
+            <!-- Buttons row -->
+            <StackPanel Orientation="Horizontal" Margin="0,15" HorizontalAlignment="Left">
+                <Button x:Name="btnNew"     Content="New"     Width="60" Margin="0,0,5,0" Click="btnNew_Click"/>
+                <Button x:Name="btnSave"    Content="Save"    Width="60" Margin="0,0,5,0" Click="btnSave_Click"    IsEnabled="False"/>
+                <Button x:Name="btnUpdate"  Content="Update"  Width="60" Margin="0,0,5,0" Click="btnUpdate_Click"  IsEnabled="False"/>
+                <Button x:Name="btnDelete"  Content="Delete"  Width="60" Margin="0,0,5,0" Click="btnDelete_Click"  IsEnabled="False"/>
+                <Button x:Name="btnRefresh" Content="Refresh" Width="60"               Click="btnRefresh_Click"/>
+            </StackPanel>
+        </StackPanel>
 
-		<!-- ───────── DataGrid (Right) ───────── -->
-		<DataGrid x:Name="dgInvoices"
+        <!-- ─────── DataGrid Section (Right) ─────── -->
+        <DataGrid x:Name="dgInvoices"
                   Grid.Column="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   SelectionChanged="dgInvoices_SelectionChanged"
                   Margin="0,0,0,10">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="ID"       Binding="{Binding InvoiceId}"       Width="Auto"/>
-				<DataGridTextColumn Header="Patient"  Binding="{Binding PatientFullName}" Width="2*"/>
-				<DataGridTextColumn Header="Date"     Binding="{Binding InvoiceDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="Auto"/>
-				<DataGridTextColumn Header="Amount"   Binding="{Binding TotalAmount, StringFormat=\{0:C\}}" Width="*" />
-				<DataGridTextColumn Header="Status"   Binding="{Binding Status}"          Width="Auto"/>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Patient"   Binding="{Binding PatientFullName}"    Width="2*"/>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="*"/>
+                <DataGridTextColumn Header="Amount"    Binding="{Binding TotalAmount, StringFormat=C}" Width="*"/>
+                <DataGridTextColumn Header="Status"    Binding="{Binding Status}"              Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
