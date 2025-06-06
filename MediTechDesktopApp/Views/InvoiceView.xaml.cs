@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Views/InvoiceView.xaml.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -24,212 +25,233 @@ namespace MediTechDesktopApp.Views
         }
 
         /// <summary>
-        /// On load, fill DataGrid + ComboBoxes.
+        /// On load, populate ComboBoxes and DataGrid.
         /// </summary>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 LoadComboBoxes();
-                RefreshGrid();
-                SetFormReadOnly(true);
+                LoadGrid();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error initializing Invoice form: {ex.Message}",
-                                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "Initialization Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Populate patient list for cbPatient.
+        /// Populate cbPatient with (id, fullName). cbStatus is static.
         /// </summary>
         private void LoadComboBoxes()
         {
             var patients = _service.GetAllPatientsForCombo();
             cbPatient.ItemsSource = patients;
-            cbPatient.DisplayMemberPath = "fullName";
-            cbPatient.SelectedValuePath = "id";
+            cbPatient.DisplayMemberPath = "Name";
+            cbPatient.SelectedValuePath = "Id";
+
+            // cbStatus items are defined in XAML; no need to re‐load here.
         }
 
         /// <summary>
-        /// Reload grid from DB and clear form.
+        /// Fetch all invoices and bind to DataGrid. Clear form afterward.
         /// </summary>
-        private void RefreshGrid()
+        private void LoadGrid()
         {
             _allInvoices = _service.GetAllInvoices();
             dgInvoices.ItemsSource = _allInvoices;
+
             ClearForm();
-            btnEdit.IsEnabled = false;
+            btnUpdate.IsEnabled = false;
             btnDelete.IsEnabled = false;
             btnSave.IsEnabled = false;
         }
 
         /// <summary>
-        /// Clears form fields and resets current.
+        /// Resets form controls and local state.
         /// </summary>
         private void ClearForm()
         {
             cbPatient.SelectedIndex = -1;
             dpInvoiceDate.SelectedDate = null;
-            txtTotalAmount.Text = "";
+            txtTotalAmount.Text = string.Empty;
             cbStatus.SelectedIndex = -1;
+
             _currentInvoice = null;
+            btnNew.IsEnabled = true;
             btnSave.IsEnabled = false;
+            btnUpdate.IsEnabled = false;
+            btnDelete.IsEnabled = false;
         }
 
         /// <summary>
-        /// Puts form into read‐only state (except New & Refresh).
-        /// </summary>
-        private void SetFormReadOnly(bool isReadOnly)
-        {
-            cbPatient.IsEnabled = !isReadOnly;
-            dpInvoiceDate.IsEnabled = !isReadOnly;
-            txtTotalAmount.IsEnabled = !isReadOnly;
-            cbStatus.IsEnabled = !isReadOnly;
-
-            btnSave.IsEnabled = !isReadOnly;
-            btnNew.IsEnabled = isReadOnly;
-            btnRefresh.IsEnabled = isReadOnly;
-        }
-
-        /// <summary>
-        /// When user selects a row, populate form fields.
+        /// When a user picks a row in the DataGrid, fill the form fields.
         /// </summary>
         private void dgInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dgInvoices.SelectedItem is Invoice inv)
             {
                 _currentInvoice = inv;
-
                 cbPatient.SelectedValue = inv.PatientId;
                 dpInvoiceDate.SelectedDate = inv.InvoiceDate;
                 txtTotalAmount.Text = inv.TotalAmount.ToString("F2");
-                cbStatus.Text = inv.Status;
+                cbStatus.SelectedItem = cbStatus.Items.OfType<ComboBoxItem>()
+                                       .FirstOrDefault(i => i.Content.ToString() == inv.Status);
 
-                btnEdit.IsEnabled = true;
+                btnUpdate.IsEnabled = true;
                 btnDelete.IsEnabled = true;
+                btnSave.IsEnabled = false;
             }
             else
             {
-                btnEdit.IsEnabled = false;
+                btnUpdate.IsEnabled = false;
                 btnDelete.IsEnabled = false;
+                btnSave.IsEnabled = false;
             }
         }
 
         /// <summary>
-        /// “New” – clear form & allow editing.
+        /// “New” clears the form for a fresh insert.
         /// </summary>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             ClearForm();
-            SetFormReadOnly(false);
+            btnSave.IsEnabled = true; // allow Save now
         }
 
         /// <summary>
-        /// “Save” – either Insert (if new) or Update (if existing).
+        /// “Save” inserts a new invoice (no InvoiceId yet).
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Validation
-                if (cbPatient.SelectedIndex < 0
-                    || dpInvoiceDate.SelectedDate == null
-                    || string.IsNullOrWhiteSpace(txtTotalAmount.Text)
-                    || cbStatus.SelectedIndex < 0)
+                // Validate Patient selection
+                if (cbPatient.SelectedIndex < 0)
                 {
-                    MessageBox.Show("You must fill in Patient, Date, Amount, and Status.",
-                                    "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Please select a Patient.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                int patientId = (int)cbPatient.SelectedValue;
-                DateTime invDate = dpInvoiceDate.SelectedDate.Value;
-                if (!decimal.TryParse(txtTotalAmount.Text.Trim(), out decimal amount))
+                // Validate Invoice Date
+                if (!dpInvoiceDate.SelectedDate.HasValue)
                 {
-                    MessageBox.Show("Total Amount must be a valid decimal number.",
-                                    "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Please choose an Invoice Date.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                string status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
 
-                if (_currentInvoice == null)
+                // Validate Total Amount
+                if (!decimal.TryParse(txtTotalAmount.Text.Trim(), out decimal amount) || amount < 0)
                 {
-                    // INSERT
-                    var model = new Invoice
-                    {
-                        PatientId = patientId,
-                        InvoiceDate = invDate,
-                        TotalAmount = amount,
-                        Status = status
-                    };
-                    _service.AddInvoice(model);
-                    MessageBox.Show("New invoice added.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    // UPDATE
-                    _currentInvoice.PatientId = patientId;
-                    _currentInvoice.InvoiceDate = invDate;
-                    _currentInvoice.TotalAmount = amount;
-                    _currentInvoice.Status = status;
-                    _service.UpdateInvoice(_currentInvoice);
-                    MessageBox.Show("Invoice updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Please enter a valid positive amount.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
                 }
 
-                RefreshGrid();
-                SetFormReadOnly(true);
+                // Validate Status selection
+                if (cbStatus.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a Status (Pending, Paid, or Overdue).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var newInv = new Invoice
+                {
+                    PatientId = (int)cbPatient.SelectedValue,
+                    InvoiceDate = dpInvoiceDate.SelectedDate.Value,
+                    TotalAmount = amount,
+                    Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString()
+                };
+
+                _service.AddInvoice(newInv);
+                MessageBox.Show("Invoice successfully added.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error saving Invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// “Edit” – unlock fields (but keep current selection).
+        /// “Update” modifies the selected invoice’s date, amount, and status.
         /// </summary>
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentInvoice != null)
-                SetFormReadOnly(false);
+            if (_currentInvoice == null) return;
+
+            try
+            {
+                // Validate fields as above
+                if (cbPatient.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Please select a Patient.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (!dpInvoiceDate.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Please choose an Invoice Date.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (!decimal.TryParse(txtTotalAmount.Text.Trim(), out decimal amount) || amount < 0)
+                {
+                    MessageBox.Show("Please enter a valid positive amount.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (cbStatus.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a Status (Pending, Paid, or Overdue).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Update properties on the local Invoice object
+                _currentInvoice.PatientId = (int)cbPatient.SelectedValue;
+                _currentInvoice.InvoiceDate = dpInvoiceDate.SelectedDate.Value;
+                _currentInvoice.TotalAmount = amount;
+                _currentInvoice.Status = ((ComboBoxItem)cbStatus.SelectedItem).Content.ToString();
+
+                _service.UpdateInvoice(_currentInvoice);
+                MessageBox.Show("Invoice successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating Invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
-        /// “Delete” – remove the selected invoice.
-        /// Note: payments referencing this will cause FK error if exist.
+        /// “Delete” removes the selected invoice.
         /// </summary>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (_currentInvoice == null) return;
 
-            var result = MessageBox.Show("Are you sure you want to delete this invoice? " +
-                                         "All associated payments must be deleted first, or you will get an FK error.",
-                                         "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Are you sure you want to delete this invoice?", "Confirm Delete",
+                                          MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
             if (result == MessageBoxResult.Yes)
             {
                 try
                 {
                     _service.DeleteInvoice(_currentInvoice.InvoiceId);
-                    MessageBox.Show("Invoice deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    RefreshGrid();
+                    MessageBox.Show("Invoice successfully deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadGrid();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error deleting invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error deleting Invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
         /// <summary>
-        /// “Refresh” – reload data.
+        /// “Refresh” reloads data from the database.
         /// </summary>
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             LoadComboBoxes();
-            RefreshGrid();
-            SetFormReadOnly(true);
+            LoadGrid();
         }
     }
 }

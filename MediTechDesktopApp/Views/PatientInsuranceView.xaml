@@ -20,13 +20,17 @@
             <!-- Patient ComboBox -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Content="Patient:" Width="100" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cbPatient" Width="200" />
+                <ComboBox x:Name="cbPatient" Width="200"
+              DisplayMemberPath="Name"
+              SelectedValuePath="Id" />
             </StackPanel>
 
             <!-- Policy ComboBox -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Content="Policy:" Width="100" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cbPolicy" Width="200" />
+                <ComboBox x:Name="cbPolicy" Width="200"
+              DisplayMemberPath="Name"
+              SelectedValuePath="Id" />
             </StackPanel>
 
             <!-- Buttons row -->

@@ -150,6 +150,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\ComboItem.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\InsurancePolicy.cs" />
     <Compile Include="Models\InsuranceProvider.cs" />

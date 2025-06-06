@@ -9,7 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using MediTechDesktopApp.Views;
 using System;
 using System.Diagnostics;
 using System.Windows;

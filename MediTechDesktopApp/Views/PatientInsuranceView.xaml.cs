@@ -48,14 +48,14 @@ namespace MediTechDesktopApp.Views
             // 1) Patients
             var patients = _service.GetAllPatientsForCombo();
             cbPatient.ItemsSource = patients;
-            cbPatient.DisplayMemberPath = "fullName";
-            cbPatient.SelectedValuePath = "id";
+            cbPatient.DisplayMemberPath = "Name";    // Now references ComboItem.Name
+            cbPatient.SelectedValuePath = "Id";      // Now references ComboItem.Id
 
             // 2) Policies
             var policies = _service.GetAllPoliciesForCombo();
             cbPolicy.ItemsSource = policies;
-            cbPolicy.DisplayMemberPath = "policyNumber";
-            cbPolicy.SelectedValuePath = "id";
+            cbPolicy.DisplayMemberPath = "Name";     // ComboItem.Name holds "policy_number"
+            cbPolicy.SelectedValuePath = "Id";       // ComboItem.Id holds "policy_id"
         }
 
         /// <summary>
@@ -94,10 +94,10 @@ namespace MediTechDesktopApp.Views
             {
                 _currentItem = selected;
                 // Set selected values on the ComboBoxes
-                cbPatient.SelectedValue = selected.PatientId;
-                cbPolicy.SelectedValue = selected.PolicyId;
+                cbPatient.SelectedValue = selected.PatientId;  // matches Id
+                cbPolicy.SelectedValue = selected.PolicyId;    // matches Id
                 btnDelete.IsEnabled = true;
-                btnSave.IsEnabled = false; // only New enables Save
+                btnSave.IsEnabled = false; // save only on “New”
             }
             else
             {
@@ -117,8 +117,7 @@ namespace MediTechDesktopApp.Views
         }
 
         /// <summary>
-        /// “Save” – inserts a new row if no current, otherwise do nothing 
-        /// (we do not support “update” on composite PK).
+        /// “Save” – inserts a new row if no current, otherwise do nothing.
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
