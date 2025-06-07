@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Admin\Desktop\filw\MediTechDesktopApp\obj\Release\
+C:\Users\Admin\Desktop\ecom-db\final complted madar\MediTechDesktopApp\obj\Release\
 MediTechDesktopApp
 none
 false
 TRACE
-C:\Users\Admin\Desktop\filw\MediTechDesktopApp\App.xaml
+C:\Users\Admin\Desktop\ecom-db\final complted madar\MediTechDesktopApp\App.xaml
 221732816797
 
-66-262936409
-42-728383669
+671372341921
+421488477043
 MainWindow.xaml;Views\AboutView.xaml;Views\AdminStaffView.xaml;Views\AppointmentView.xaml;Views\AssignmentView.xaml;Views\ContactView.xaml;Views\DashboardPlaceholderView.xaml;Views\DepartmentView.xaml;Views\HomeView.xaml;Views\InsurancePolicyView.xaml;Views\InsuranceProviderView.xaml;Views\InvoiceView.xaml;Views\LoginWindow.xaml;Views\MedicalRecordView.xaml;Views\PatientFileView.xaml;Views\PatientInsuranceView.xaml;Views\PatientView.xaml;Views\PaymentView.xaml;Views\PrescriptionView.xaml;Views\TreatmentView.xaml;Views\DoctorView.xaml;Views\NurseView.xaml;
 
 True

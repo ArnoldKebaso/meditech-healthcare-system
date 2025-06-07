@@ -195,6 +195,9 @@
     <Compile Include="Views\DepartmentView.xaml.cs">
       <DependentUpon>DepartmentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InsurancePolicyView.xaml.cs">
       <DependentUpon>InsurancePolicyView.xaml</DependentUpon>
     </Compile>
@@ -424,6 +427,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Docs\AdminStaffTestLogs.md" />
+    <None Include="Docs\AppointmentTestLogs.md" />
+    <None Include="Docs\DepartmentTestLogs.md" />
+    <None Include="Docs\DoctorTestLogs.md" />
+    <None Include="Docs\InsuarancePolicyTestLogs.md" />
+    <None Include="Docs\InsuaranceProviderTestLogs.md" />
+    <None Include="Docs\InvoiceFormTestLog.md" />
+    <None Include="Docs\MedicalRecordTestLogs.md" />
+    <None Include="Docs\NurseTestLogs.md" />
+    <None Include="Docs\PateintFileTestLogs.md" />
+    <None Include="Docs\PatienceInsuaranceTestLog.md" />
+    <None Include="Docs\PatientTestLogs.md" />
+    <None Include="Docs\PaymentTestLogs.md" />
+    <None Include="Docs\PrescriptionTestLogs.md" />
+    <None Include="Docs\StaffRoleServiceTestLogs.md" />
+    <None Include="Docs\TreatmentAssignmentTestLogs.md" />
+    <None Include="Docs\TreatmentLogs.md" />
+    <None Include="Docs\UserServiceTestLogs.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
