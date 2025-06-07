@@ -1,116 +1,106 @@
-﻿<!-- Views/HomeView.xaml -->
-<UserControl 
+﻿<UserControl
     x:Class="MediTechDesktopApp.Views.HomeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:MediTechDesktopApp.Views"
-    Background="White">
+    Background="#FFF5F5F5"
+    Height="Auto" Width="Auto">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="2*" />
-        </Grid.RowDefinitions>
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<StackPanel>
 
-        <!-- Top banner area -->
-        <Border 
-            Grid.Row="0" 
-            Background="#FF87CEEB" 
-            CornerRadius="0,0,20,20">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock 
-                    Text="Welcome to MediTech Management" 
-                    FontSize="28" 
-                    FontWeight="Bold" 
-                    Foreground="White" />
-                <TextBlock 
-                    Text="Your one-stop clinic management solution" 
-                    FontSize="16" 
-                    Foreground="White" 
-                    Margin="0,10,0,0" />
-            </StackPanel>
-        </Border>
+			<!-- HERO SECTION -->
+			<Grid Height="220" Background="#FF2C6E49">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="2*" />
+				</Grid.ColumnDefinitions>
 
-        <!-- Middle area: some simple welcome text or images -->
-        <StackPanel 
-            Grid.Row="1" 
-            VerticalAlignment="Center" 
-            HorizontalAlignment="Center" 
-            Margin="20">
-            <TextBlock 
-                Text="Explore our features:" 
-                FontSize="20" 
-                FontWeight="SemiBold" 
-                Foreground="#FF2F4F4F" 
-                Margin="0,0,0,10"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Border 
-                    Background="#FFADD8E6" 
-                    CornerRadius="10" 
-                    Padding="10" 
-                    Margin="10" 
-                    Width="200" 
-                    Height="120">
-                    <StackPanel VerticalAlignment="Center" >
-                        <TextBlock 
-                            Text="●  Patient Management" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                        <TextBlock 
-                            Text="●  Billing and Invoicing" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                        <TextBlock 
-                            Text="●  Appointments" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                    </StackPanel>
-                </Border>
-                <Border 
-                    Background="#FFB0E0E6" 
-                    CornerRadius="10" 
-                    Padding="10" 
-                    Margin="10" 
-                    Width="200" 
-                    Height="120">
-                    <StackPanel VerticalAlignment="Center">
-                        <TextBlock 
-                            Text="●  Prescriptions" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                        <TextBlock 
-                            Text="●  Medical Records" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                        <TextBlock 
-                            Text="●  Reports and Analytics" 
-                            Foreground="#FF2F4F4F" 
-                            FontSize="14" 
-                            Margin="0,5"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </StackPanel>
+				<!-- Hero Text and CTA -->
+				<StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="30">
+					<TextBlock Text="Welcome to MediTech Management"
+							   FontSize="32"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   TextWrapping="Wrap"/>
+					<TextBlock Text="Streamline your clinic’s workflow—from patient intake to billing—on a single platform."
+							   FontSize="16"
+							   Foreground="White"
+							   Margin="0,10,0,0"
+							   TextWrapping="Wrap"/>
+					<Button Content="Get Started"
+							Width="140"
+							Padding="10,6"
+							Margin="0,20,0,0"
+							Background="#FFFFC107"
+							Foreground="#FF2C6E49"
+							FontWeight="SemiBold"
+							Click="GetStarted_Click"
+							Cursor="Hand"/>
+				</StackPanel>
+			</Grid>
 
-        <!-- Bottom area: “Log In” button -->
-        <StackPanel 
-            Grid.Row="2" 
-            VerticalAlignment="Top" 
-            HorizontalAlignment="Center">
-            <Button 
-                Content="Click ‘Log In’ on top to access Dashboard" 
-                FontSize="16" 
-                Foreground="White" 
-                Background="#FF6B8E23" 
-                Padding="10,5" 
-                Cursor="Hand" 
-                IsEnabled="False"/>
-        </StackPanel>
-    </Grid>
+			<!-- FEATURES GRID -->
+			<TextBlock Text="Key Features"
+					   FontSize="24"
+					   FontWeight="SemiBold"
+					   Foreground="#FF2F4F4F"
+					   Margin="20,30,0,10"/>
+			<UniformGrid Columns="3" Margin="20">
+				<Border Background="White" CornerRadius="6" Padding="15" Margin="8">
+					<StackPanel>
+						<TextBlock Text="🧑‍🤝‍🧑 Patient Management"
+								   FontSize="16"
+								   FontWeight="Bold"
+								   Margin="0,0,0,6"/>
+						<TextBlock Text="Add, edit and search patient records with ease."
+								   TextWrapping="Wrap"/>
+					</StackPanel>
+				</Border>
+				<Border Background="White" CornerRadius="6" Padding="15" Margin="8">
+					<StackPanel>
+						<TextBlock Text="📅 Appointments"
+								   FontSize="16"
+								   FontWeight="Bold"
+								   Margin="0,0,0,6"/>
+						<TextBlock Text="Schedule, reschedule or cancel with a few clicks."
+								   TextWrapping="Wrap"/>
+					</StackPanel>
+				</Border>
+				<Border Background="White" CornerRadius="6" Padding="15" Margin="8">
+					<StackPanel>
+						<TextBlock Text="💳 Billing and Invoicing"
+								   FontSize="16"
+								   FontWeight="Bold"
+								   Margin="0,0,0,6"/>
+						<TextBlock Text="Generate invoices and record payments securely."
+								   TextWrapping="Wrap"/>
+					</StackPanel>
+				</Border>
+			</UniformGrid>
+
+			<!-- FOOTER CTA -->
+			<Border Background="#FF2C6E49"
+					Padding="30"
+					Margin="20"
+					CornerRadius="6">
+				<StackPanel HorizontalAlignment="Center">
+					<TextBlock Text="Ready to elevate your clinic?"
+							   FontSize="20"
+							   FontWeight="SemiBold"
+							   Foreground="White"
+							   TextAlignment="Center"/>
+					<Button Content="Log In Now"
+							Width="160"
+							Padding="10,6"
+							Margin="0,20,0,0"
+							Background="#FFFFC107"
+							Foreground="#FF2C6E49"
+							FontWeight="Bold"
+							Click="LoginNow_Click"
+							Cursor="Hand"/>
+				</StackPanel>
+			</Border>
+
+		</StackPanel>
+	</ScrollViewer>
 </UserControl>
